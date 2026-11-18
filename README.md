@@ -3,11 +3,12 @@ Trabajo calificado de Sistemas Operativos II, Ing. en Sistemas. En la presente s
 
 Integrantes:
 Jesus Ernesto Ramirez Ruiz - 28.661.648
-Anthony Jose Alvarado - 28.
+
+Anthony Jose Alvarado - 28.759.193
 
 La Cena de los Filósofos es una metáfora sobre 5 procesos (filósofos) que compiten por 5 recursos compartidos (tenedores) en una mesa redonda. Cada uno necesita dos tenedores simultáneamente para comer, pero si todos toman el de su izquierda al mismo tiempo, ninguno podrá tomar el de su derecha y el sistema se congela por completo (interbloqueo o deadlock).
 
-Por que es importante comprenderlo?:
+**Por que es importante comprenderlo?:**
 
 Enseña a coordinar múltiples tareas que se ejecutan en paralelo sobre recursos limitados (memoria, archivos, bases de datos). Dominar su solución (mediante semáforos y asimetría) garantiza tres cosas en el desarrollo de software real:
 
@@ -129,7 +130,7 @@ Cabe destacar que el codigo anterior es solamente uno de los multiples metodos q
 
 En lugar de modificar el comportamiento de un filósofo en particular, se coloca un "portero" en la mesa que controla cuántas personas pueden intentar agarrar tenedores al mismo tiempo. Si hay 5 tenedores, el portero solo deja pasar a 4 filósofos simultáneamente. Por pura matemática, si hay 4 personas y 5 tenedores, es imposible que todos queden con un solo tenedor; al menos uno conseguirá dos.
 
-*Que lo diferencia de los otros metodos?*
+**Que lo diferencia de los otros metodos?**
 
 Se diferencia en que todos los filósofos son simétricos (ejecutan exactamente las mismas líneas de código), pero existe un recurso global extra (portero) que regula el acceso a la mesa.
 
@@ -212,7 +213,7 @@ gcc filosofos_portero.c -o filosofos_portero -lpthread && ./filosofos_portero
 
 Es la solución clásica más robusta (propuesta por Tanenbaum). Aquí los tenedores dejan de ser semáforos individuales; en su lugar, se rastrea el estado de cada filósofo (PENSANDO, HAMBRIENTO, COMIENDO). Un filósofo entra a una zona protegida por un candado único (mutex), revisa si sus dos vecinos no están comiendo y, solo si ambos lados están libres, toma los dos tenedores en un solo paso atómico.
 
-*Que lo diferencia de los otros metodos?*
+**Que lo diferencia de los otros metodos?**
 
 Ningún filósofo toma un tenedor mientras espera el otro. O toma ambos de golpe, o no toma ninguno y se duerme hasta que un vecino le avise.
 
