@@ -18,7 +18,8 @@ Enseña a coordinar múltiples tareas que se ejecutan en paralelo sobre recursos
 **- Paso 1:** Crear el entorno en terminal
 Abre la terminal en Fedora y crea un directorio limpio para trabajar:
 
-``` bash
+```
+Bash
 mkdir proyecto_filosofos
 cd proyecto_filosofos
 nano filosofos.c
@@ -29,7 +30,7 @@ nano filosofos.c
 
 *Parte A:* Librerías y recursos compartidos
 
-``` bash
+```
 C
 #include <stdio.h>      // Entrada y salida estándar (printf)
 #include <stdlib.h>     // Números aleatorios (rand)
@@ -77,7 +78,7 @@ void* accion_filosofo(void* numero) {
 ```
 
 Parte C: Inicialización del programa (main)
-``` bash
+```
 C
 int main() {
     pthread_t filosofos[TOTAL];
@@ -109,9 +110,9 @@ Compilar: Enlaza la librería POSIX Threads con -lpthread:
 
 ``` bash
 gcc filosofos.c -o filosofos -lpthread
-Ejecutar:
 ```
 
+Ejecutar:
 ``` bash
 ./filosofos
 ```
