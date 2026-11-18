@@ -8,7 +8,9 @@ Anthony Jose Alvarado - 28.
 La Cena de los Filósofos es una metáfora sobre 5 procesos (filósofos) que compiten por 5 recursos compartidos (tenedores) en una mesa redonda. Cada uno necesita dos tenedores simultáneamente para comer, pero si todos toman el de su izquierda al mismo tiempo, ninguno podrá tomar el de su derecha y el sistema se congela por completo (interbloqueo o deadlock).
 
 Por que es importante comprenderlo?:
+
 Enseña a coordinar múltiples tareas que se ejecutan en paralelo sobre recursos limitados (memoria, archivos, bases de datos). Dominar su solución (mediante semáforos y asimetría) garantiza tres cosas en el desarrollo de software real:
+
 
   * Evitar bloqueos: Impide que los programas se queden congelados esperando recursos retenidos por otros procesos.
 
@@ -20,6 +22,7 @@ Enseña a coordinar múltiples tareas que se ejecutan en paralelo sobre recursos
     ## **Guía paso a paso: Desarrollo en C sobre Fedora Linux**
 
 **- Paso 1:** Crear el entorno en terminal
+
 Abre la terminal en Fedora y crea un directorio limpio para trabajar:
 
 ```bash
@@ -29,6 +32,7 @@ nano filosofos.c
 ```
 
 **- Paso 2:** Escribir el código en nano
+
   Copia las siguientes tres partes en orden dentro del archivo. La estrategia aplicada aquí es romper la simetría: los primeros 4 filósofos toman el tenedor izquierdo primero, pero el quinto toma primero el derecho, eliminando la posibilidad de interbloqueo.
 
 *Parte A:* Librerías y recursos compartidos
@@ -122,9 +126,11 @@ Detén la ejecución en cualquier momento presionando Ctrl + C.
 Cabe destacar que el codigo anterior es solamente uno de los multiples metodos que se pueden emplear para resolver este problema logico. A continuacion se explican dos metodos mas por los que se puede "resolver" dicho dilema:
 
 **Método 2: El Portero (Semáforo Contador)**
+
 En lugar de modificar el comportamiento de un filósofo en particular, se coloca un "portero" en la mesa que controla cuántas personas pueden intentar agarrar tenedores al mismo tiempo. Si hay 5 tenedores, el portero solo deja pasar a 4 filósofos simultáneamente. Por pura matemática, si hay 4 personas y 5 tenedores, es imposible que todos queden con un solo tenedor; al menos uno conseguirá dos.
 
 *Que lo diferencia de los otros metodos?*
+
 Se diferencia en que todos los filósofos son simétricos (ejecutan exactamente las mismas líneas de código), pero existe un recurso global extra (portero) que regula el acceso a la mesa.
 
 **Pros:** Código limpio y uniforme para todos los hilos; fácil de escalar a cualquier número "N" de filósofos cambiando una constante.
@@ -132,6 +138,7 @@ Se diferencia en que todos los filósofos son simétricos (ejecutan exactamente 
 **Contras:** Reduce ligeramente el paralelismo (un filósofo puede quedarse esperando en la "puerta" aunque sus dos tenedores estén libres). Tampoco garantiza evitar la inanición (starvation).
 
 Implementación completa (filosofos_portero.c)
+
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -202,9 +209,11 @@ gcc filosofos_portero.c -o filosofos_portero -lpthread && ./filosofos_portero
 ```
 
 **Método 3: Toma Atómica con Estados (Mutex + Arreglo de Estados)**
+
 Es la solución clásica más robusta (propuesta por Tanenbaum). Aquí los tenedores dejan de ser semáforos individuales; en su lugar, se rastrea el estado de cada filósofo (PENSANDO, HAMBRIENTO, COMIENDO). Un filósofo entra a una zona protegida por un candado único (mutex), revisa si sus dos vecinos no están comiendo y, solo si ambos lados están libres, toma los dos tenedores en un solo paso atómico.
 
 *Que lo diferencia de los otros metodos?*
+
 Ningún filósofo toma un tenedor mientras espera el otro. O toma ambos de golpe, o no toma ninguno y se duerme hasta que un vecino le avise.
 
 **Pros:** Máximo rendimiento y paralelismo (ningún recurso queda retenido sin usarse); elimina el interbloqueo (deadlock) y reduce drásticamente el riesgo de inanición.
