@@ -1,6 +1,10 @@
 # Problema-de-los-Filosofos
 Trabajo calificado de Sistemas Operativos II, Ing. en Sistemas. En la presente se desarrolla el problema de la cena de los filosofos resuelto en Lenguaje C, empleando el uso de Hilos POSIX (Pthreads) y Semaforos (semaphore.h)
 
+Integrantes:
+Jesus Ernesto Ramirez Ruiz - 28.661.648
+Anthony Jose Alvarado - 28.
+
 La Cena de los Filósofos es una metáfora sobre 5 procesos (filósofos) que compiten por 5 recursos compartidos (tenedores) en una mesa redonda. Cada uno necesita dos tenedores simultáneamente para comer, pero si todos toman el de su izquierda al mismo tiempo, ninguno podrá tomar el de su derecha y el sistema se congela por completo (interbloqueo o deadlock).
 
 Por que es imporatnte comprenderlo?:
